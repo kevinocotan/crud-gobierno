@@ -1,17 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProyectoController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Definir rutas CRUD para el controlador ProyectoController
+Route::resource('proyectos', ProyectoController::class);
+
+// Ruta personalizada para descargar un PDF de proyectos
+Route::get('informes', [ProyectoController::class, 'informe'])->name('informes');
+
+Route::get('/proyectos/download-pdf', [ProyectoController::class, 'generatePDF'])->name('proyectos.pdf');
+Route::get('informes', [ProyectoController::class, 'informe'])->name('informes');
+Route::get('/proyectos/{proyecto}/download-pdf', [ProyectoController::class, 'downloadPDF'])->name('proyectos.downloadPDF');
+
+// Otras rutas específicas de tu aplicación
+// ...
+
 
 Route::get('/', function () {
     return view('welcome');
